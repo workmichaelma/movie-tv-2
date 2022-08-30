@@ -50,7 +50,7 @@ const fetch = async ({ type, year, category, page, region }) => {
 
 const initState = {
   page: 0,
-  year: null,
+  year: 2022,
   category: null,
   type: 'movies',
   region: null,
@@ -167,22 +167,21 @@ export const APIProvider = ({ children }) => {
         setCategory: (v) => {
           setConfig({
             ...config,
-            category: v,
+            category: v === category ? null : v,
             page: 1,
           })
         },
         setYear: (v) => {
           setConfig({
             ...config,
-            year: v,
+            year: v === year ? null : v,
             page: 1,
           })
         },
         setRegion: (v) => {
-          const _ = v === region ? null : v
           setConfig({
             ...config,
-            region: _,
+            region: v === region ? null : v,
             page: 1,
           })
         },
