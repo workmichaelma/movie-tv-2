@@ -161,26 +161,29 @@ export const APIProvider = ({ children }) => {
           setConfig({
             ...config,
             type: v,
+            page: 1,
           })
         },
         setCategory: (v) => {
           setConfig({
             ...config,
             category: v,
+            page: 1,
           })
         },
         setYear: (v) => {
           setConfig({
             ...config,
             year: v,
+            page: 1,
           })
         },
         setRegion: (v) => {
           const _ = v === region ? null : v
-          console.log({ _ })
           setConfig({
             ...config,
             region: _,
+            page: 1,
           })
         },
         nextPage,

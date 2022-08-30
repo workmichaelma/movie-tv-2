@@ -6,7 +6,10 @@ const IndexSearchBar = () => {
   const { region, type, year, category } = useAPI()
 
   const _region = region === null ? '所有地區' : region
-  const _category = category === null ? '' : category.replace(/片|電影/g, '')
+  const _category =
+    type === 'dramas' || category === null
+      ? ''
+      : category.replace(/片|電影/g, '')
   const _year = year === null ? '' : `在 ${year} 年上映的`
   let text = type === 'movies' ? '電影' : type === 'dramas' ? '連續劇' : '劇集'
 

@@ -1,6 +1,7 @@
 // In App.js in a new project
 
 import * as React from 'react'
+import { useKeepAwake } from 'expo-keep-awake'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { TailwindProvider } from 'tailwind-rn'
@@ -14,6 +15,7 @@ import PlayerPage from './components/Player/index'
 const Stack = createNativeStackNavigator()
 
 function App() {
+  useKeepAwake()
   return (
     <APIProvider>
       <ButtonProvider>

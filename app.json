@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "movie-tv-2",
+    "name": "睇戲2",
     "slug": "movie-tv-2",
     "version": "1.0.0",
     "orientation": "landscape",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#cbd5e1"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -20,8 +20,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/splash.png",
+        "backgroundColor": "#cbd5e1"
       },
       "intentFilters": [
         {
@@ -29,7 +29,8 @@
           "data": {},
           "category": ["LEANBACK_LAUNCHER", "LAUNCHER"]
         }
-      ]
+      ],
+      "package": "com.workmichaelma.movietv2"
     },
     "web": {
       "favicon": "./assets/favicon.png"
