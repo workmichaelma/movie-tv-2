@@ -166,21 +166,21 @@ export const APIProvider = ({ children }) => {
         },
         setCategory: (v) => {
           setConfig({
-            ...initState,
+            ...config,
             category: v === category ? null : v,
             page: 1,
           })
         },
         setYear: (v) => {
           setConfig({
-            ...initState,
+            ...config,
             year: v === year ? null : v,
             page: 1,
           })
         },
         setRegion: (v) => {
           setConfig({
-            ...initState,
+            ...config,
             region: v === region ? null : v,
             page: 1,
           })
