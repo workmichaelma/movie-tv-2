@@ -159,28 +159,28 @@ export const APIProvider = ({ children }) => {
         setLoading,
         setType: (v) => {
           setConfig({
-            ...config,
+            ...initState,
             type: v,
             page: 1,
           })
         },
         setCategory: (v) => {
           setConfig({
-            ...config,
+            ...initState,
             category: v === category ? null : v,
             page: 1,
           })
         },
         setYear: (v) => {
           setConfig({
-            ...config,
+            ...initState,
             year: v === year ? null : v,
             page: 1,
           })
         },
         setRegion: (v) => {
           setConfig({
-            ...config,
+            ...initState,
             region: v === region ? null : v,
             page: 1,
           })
