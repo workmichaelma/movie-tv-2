@@ -78,9 +78,9 @@ const IndexHeader = () => {
     setType,
   } = useAPI()
 
-  const style = 'border-1 border-slate-300 p-1 rounded-md mr-2 bg-neutral-300'
-  const _style = 'bg-white border-cyan-700'
-  const _selectedStyle = 'border-slate-500 bg-slate-300'
+  const style = 'border-1 border-transparent border-b-slate-700 p-1 mr-2'
+  const _style = 'border-cyan-400'
+  const _selectedStyle = 'border-b-cyan-400'
   const selectedStyle = (selected) => {
     return {
       text: selected ? 'font-bold text-slate-500' : '',
@@ -89,7 +89,7 @@ const IndexHeader = () => {
   }
 
   const tagStyle = tailwind(
-    'text-slate-700 py-1 mr-2 text-xs border-b-1 border-slate-700'
+    'text-slate-300 py-1 mr-2 text-xs border-b-1 border-slate-300'
   )
 
   const itemFocusing = useMemo(() => {
@@ -143,7 +143,7 @@ const IndexHeader = () => {
                 setMore(false)
               }}
             >
-              <Text style={tailwind(`text-cyan-600`)}>{year}</Text>
+              <Text style={tailwind(`text-cyan-400`)}>{year}</Text>
             </Button>
           )
         })}
@@ -198,7 +198,7 @@ const IndexHeader = () => {
             setType(index)
           }}
         >
-          <Text style={tailwind(`text-cyan-600`)}>{name}</Text>
+          <Text style={tailwind(`text-cyan-400`)}>{name}</Text>
         </Button>
       )
     })
@@ -216,14 +216,14 @@ const IndexHeader = () => {
             setRegion(name)
           }}
         >
-          <Text style={tailwind(`text-cyan-600 ${text}`)}>{name}</Text>
+          <Text style={tailwind(`text-cyan-400 ${text}`)}>{name}</Text>
         </Button>
       )
     })
   }
   return (
     <View
-      style={tailwind('p-2 w-full bg-neutral-200 border-b-2 border-slate-300')}
+      style={tailwind('p-2 w-full bg-neutral-800 border-b-2 border-slate-300')}
     >
       <View style={tailwind('flex flex-row static')}>
         <View style={tailwind('flex flex-row items-center')}>
@@ -235,7 +235,7 @@ const IndexHeader = () => {
               nextPage()
             }}
           >
-            <Text style={tailwind('text-cyan-600')}>下一頁</Text>
+            <Text style={tailwind('text-cyan-400')}>下一頁</Text>
           </Button>
           <Button
             style={style}
@@ -245,7 +245,7 @@ const IndexHeader = () => {
               prevPage()
             }}
           >
-            <Text style={tailwind('text-cyan-600')}>上一頁</Text>
+            <Text style={tailwind('text-cyan-400')}>上一頁</Text>
           </Button>
         </View>
 
@@ -258,13 +258,13 @@ const IndexHeader = () => {
           currentData?.meta?.pagination?.pageCount > 0 ? (
             <>
               <Text
-                style={tailwind(`text-slate-700 text-xs`)}
+                style={tailwind(`text-slate-300 text-xs`)}
                 accessible={false}
               >
                 第 {currentData.meta.pagination.page} 頁，
               </Text>
               <Text
-                style={tailwind(`text-slate-700 text-xs`)}
+                style={tailwind(`text-slate-300 text-xs`)}
                 accessible={false}
               >
                 共 {currentData.meta.pagination.pageCount} 頁
@@ -281,7 +281,7 @@ const IndexHeader = () => {
           {isObject(itemFocusing) && !isEmpty(itemFocusing) ? (
             <>
               <View style={tailwind('w-52')}>
-                <Text style={tailwind('text-center')}>
+                <Text style={tailwind(`text-slate-300 text-center`)}>
                   {itemFocusing.title}
                 </Text>
               </View>
@@ -306,7 +306,7 @@ const IndexHeader = () => {
         </View>
         <View style={tailwind('flex flex-row items-center')}>
           <Button
-            style={`${style} border-red-200`}
+            style={`${style} border-b-red-500`}
             _style={`${_style} border-red-500`}
             id={'filter__reset'}
             onPress={() => {
@@ -317,8 +317,8 @@ const IndexHeader = () => {
             <Text style={tailwind('text-red-500')}>重設</Text>
           </Button>
           <Button
-            style={'border-1 border-slate-300 rounded-full bg-neutral-100'}
-            _style={_style}
+            style={'border-1 border-slate-400 rounded-full'}
+            _style={`${_style} bg-neutral-100`}
             id={'filter__more'}
             onPress={() => {
               more ? setMore(false) : setMore(true)

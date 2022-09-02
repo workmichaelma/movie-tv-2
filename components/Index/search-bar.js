@@ -21,10 +21,12 @@ const IndexSearchBar = () => {
 
   return (
     <View
-      style={tailwind(`flex flex-row pt-1 w-full justify-center`)}
+      style={tailwind(
+        `flex flex-row pt-1 w-full justify-center bg-neutral-700`
+      )}
       accessible={false}
     >
-      <Text style={tailwind(`text-sm text-slate-700`)} accessible={false}>
+      <Text style={tailwind(`text-sm text-slate-200`)} accessible={false}>
         現正顯示{text}
       </Text>
     </View>

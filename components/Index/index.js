@@ -19,7 +19,7 @@ const HomeScreen = ({ navigation }) => {
   }, [])
 
   return (
-    <View style={tailwind(`flex flex-col w-full h-full`)}>
+    <View style={tailwind(`flex flex-col w-full h-full bg-neutral-700`)}>
       <Header />
       {loading ? (
         <View

@@ -27,7 +27,7 @@ const IndexCards = ({ navigation }) => {
         return (
           <Button
             style={
-              'mr-2 mb-3 w-24 h-36 overflow-hidden rounded-xl border-3 border-slate-300 opacity-90'
+              'mr-2 mb-3 w-24 h-36 overflow-hidden rounded-xl border-3 border-slate-500 opacity-90'
             }
             _style={'border-cyan-500 opacity-100'}
             id={`Card__${item.id}`}
@@ -88,7 +88,7 @@ const IndexCards = ({ navigation }) => {
   }
 
   return (
-    <View style={tailwind('px-2 grow w-full bg-neutral-100 flex')}>
+    <View style={tailwind('px-2 grow w-full flex')}>
       <View
         style={tailwind(
           'flex flex-row grow flex-wrap justify-center items-center'

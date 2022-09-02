@@ -8,11 +8,10 @@ import { Video } from 'expo-av'
 import { includes } from 'lodash'
 
 const Player = () => {
-  const videoRef = useRef(null)
   const tailwind = useTailwind()
   const {
     feed,
-    setVideoRef,
+    videoRef,
     setPlayerStatus,
     switchFeed,
     loading,
@@ -42,15 +41,6 @@ const Player = () => {
       return null
     }
   }
-  useEffect(() => {
-    if (videoRef) {
-      setVideoRef(videoRef)
-      console.log({ videoRef })
-    }
-    return () => {
-      setVideoRef(null)
-    }
-  }, [videoRef])
 
   if (loading) {
     return <Loading loading={loading} />

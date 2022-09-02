@@ -8,14 +8,17 @@ import {
   toNumber,
   uniq,
   find,
+  findIndex,
 } from 'lodash'
 
 import React, {
   createContext,
   useEffect,
   useContext,
+  useCallback,
   useState,
   useMemo,
+  useRef,
 } from 'react'
 
 const Context = createContext({})
@@ -47,7 +50,7 @@ const fetchFeeds = async ({ type, id }) => {
 
 export const PlayerProvider = ({ children, item }) => {
   const [loading, setLoading] = useState(false)
-  const [videoRef, setVideoRef] = useState(null)
+  const videoRef = useRef(null)
   const [playerStatus, setPlayerStatus] = useState(null)
   const [feed, setFeed] = useState(null)
   const [movie, setMovie] = useState(null)
@@ -56,21 +59,22 @@ export const PlayerProvider = ({ children, item }) => {
   const [feedsTried, setFeedsTried] = useState([])
   const [failedToFetch, setFailedToFetch] = useState(false)
   const play = () => {
-    if (videoRef?.current) {
+    if (videoRef) {
       videoRef.current.playAsync()
     }
   }
   const pause = () => {
-    if (videoRef?.current) {
+    if (videoRef) {
       videoRef.current.pauseAsync()
     }
   }
 
-  const forward = (_second) => {
+  const forward = async (_second) => {
     try {
       const second = _second * 1000
-      const { positionMillis: current } = timer
-      videoRef.current.playFromPositionAsync(current + second)
+      const { positionMillis: current } =
+        await videoRef.current.getStatusAsync()
+      videoRef?.current.playFromPositionAsync(current + second)
     } catch (err) {
       console.log(err)
     }
@@ -97,12 +101,38 @@ export const PlayerProvider = ({ children, item }) => {
     }
   }
 
+  useEffect(() => {
+    if (playerStatus) {
+      if (
+        playerStatus.positionMillis &&
+        playerStatus.positionMillis === playerStatus.durationMillis
+      ) {
+        const index = findIndex(get(movie, 'feeds'), { episode })
+        const _episode = get(movie, `feeds[${index + 1}].episode`)
+        if (_episode) {
+          setEpisode(_episode)
+        }
+      }
+    }
+  }, [playerStatus])
+
+  const isPlaying = useMemo(() => {
+    if (playerStatus) {
+      return playerStatus.isPlaying
+    }
+    return false
+  }, [playerStatus])
+
   const timer = useMemo(() => {
     if (playerStatus) {
-      const { positionMillis, playableDurationMillis, durationMillis } =
-        playerStatus
-      return {
+      const {
+        isPlaying,
         positionMillis,
+        playableDurationMillis,
+        durationMillis,
+      } = playerStatus
+      return {
+        isPlaying,
         current: millisToMinutesAndSeconds(positionMillis),
         playable: millisToMinutesAndSeconds(playableDurationMillis),
         total: millisToMinutesAndSeconds(durationMillis),
@@ -161,8 +191,9 @@ export const PlayerProvider = ({ children, item }) => {
         feedsFailed,
         loading,
         failedToFetch,
+        videoRef,
+        isPlaying,
         switchFeed,
-        setVideoRef,
         setEpisode,
         setPlayerStatus,
       }}

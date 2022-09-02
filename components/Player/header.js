@@ -29,22 +29,24 @@ const PlayerHeader = ({ navigation }) => {
     episode,
     type,
     setEpisode,
+    isPlaying,
   } = usePlayer()
   const [more, setMore] = useState(false)
 
   const [showOverlay, setShowOverlay] = useState(true)
-  const [lastEventType, setLastEventType] = useState('')
+  const [lastEventType, setLastEventType] = useState(true)
 
   const { season, title, feeds } = movie || {}
   const myTVEventHandler = (evt) => {
-    setLastEventType(evt.eventType)
+    setLastEventType(!lastEventType)
   }
   useTVEventHandler(myTVEventHandler)
   useEffect(() => {
     setShowOverlay(true)
     const hideOverlay = setTimeout(() => {
       setShowOverlay(false)
-    }, 5000)
+      setMore(false)
+    }, 10000)
     return () => clearTimeout(hideOverlay)
   }, [lastEventType, setShowOverlay])
 
@@ -207,12 +209,12 @@ const PlayerHeader = ({ navigation }) => {
             _style={`bg-slate-200 border-cyan-600`}
             id="player__play"
             onPress={() => {
-              play()
+              isPlaying ? pause() : play()
             }}
           >
             <Avatar.Icon
               size={24}
-              icon={'play'}
+              icon={isPlaying ? 'pause' : 'play'}
               color="#0891b2"
               style={tailwind('bg-transparent')}
             />
@@ -220,15 +222,15 @@ const PlayerHeader = ({ navigation }) => {
           <Button
             style={`flex items-center justify-center bg-slate-400 rounded-full h-6 w-6 border-2 border-slate-500`}
             _style={`bg-slate-200 border-cyan-600`}
-            id="player__pause"
+            id="player__setting"
             onPress={() => {
-              pause()
+              setMore(true)
             }}
           >
             <Avatar.Icon
               size={24}
-              icon={'pause'}
-              color="#0891b2"
+              icon={'cog-outline'}
+              color="#090909"
               style={tailwind('bg-transparent')}
             />
           </Button>
@@ -242,25 +244,6 @@ const PlayerHeader = ({ navigation }) => {
             {episode ? `第 ${episode} 集` : ''}
           </Text>
         </View>
-        {!more ? (
-          <View>
-            <Button
-              style={`flex items-center justify-center bg-slate-400 rounded-full h-6 w-6 border-2 border-slate-500`}
-              _style={`bg-slate-200 border-cyan-600`}
-              id="player__setting"
-              onPress={() => {
-                setMore(true)
-              }}
-            >
-              <Avatar.Icon
-                size={24}
-                icon={'cog-outline'}
-                color="#090909"
-                style={tailwind('bg-transparent')}
-              />
-            </Button>
-          </View>
-        ) : null}
         <View style={tailwind(`flex items-center ml-2`)}>
           <Button
             style={`flex items-center justify-center bg-slate-400 rounded-full h-6 w-6 border-2 border-slate-500`}
